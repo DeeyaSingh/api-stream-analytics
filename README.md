@@ -22,15 +22,21 @@ APIStream Analytics simulates and processes high-volume API traffic logs in real
 ## Architecture
 
 ```
-[API Log Generator] → [Streaming Source] → [Spark Streaming]
-                                                  ↓
-                                         [ETL & Validation]
-                                                  ↓
-                                    [Aggregation & Analytics]
-                                                  ↓
-                              [Parquet Files] | [SQLite DB]
-                                                  ↓
-                                         [Visualization]
+API Log Generator
+↓
+Bronze Layer (Raw Streaming Events)
+↓
+Data Quality & Validation (DLQ Handling)
+↓
+Silver Layer (Cleaned & Enriched Events)
+↓
+Stateful Aggregations (Event-Time + Watermarks)
+↓
+Gold Layer (Analytics & SLIs)
+↓
+Parquet (Analytics Lake) | SQLite (Query Layer)
+↓
+Visualization & Monitoring
 ```
 
 ## Tech Stack
